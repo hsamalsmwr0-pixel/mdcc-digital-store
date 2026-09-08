@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDCC | Mohammed Digital Command Center</title>
+    <meta name="description" content="مركز MDCC الأصول الرقمية، قوالب الأتمتة، وحلول الإنتاجية والتحكم الإداري.">
+    <meta name="keywords" content="MDCC, أصول رقمية, قوالب أتمتة, Excel, Make.com, حلول إدارية">
+    <meta name="robots" content="index, follow">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #2563eb;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        header h1 {
+            font-size: 2.2rem;
+            color: #38bdf8;
+            margin-bottom: 5px;
+        }
+        header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+        .container {
+            width: 100%;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #f1f5f9;
+        }
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #4ade80;
+            margin: 15px 0;
+        }
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #1d4ed8;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border-radius: 5px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MDCC</h1>
+        <p>Mohammed Digital Command Center | متجر الأصول الرقمية وقوالب الأتمتة</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <div>
+                <h3>قالب إدارة الأرباح والتكاليف (Excel)</h3>
+                <p>نموذج احترافي خالي من التعقيد لحساب التدفقات المالية وتحديد صافي الأرباح تلقائياً.</p>
+            </div>
+            <div>
+                <div class="price">5 د.أ</div>
+                <button onclick="openModal('P101', 'قالب إدارة الأرباح والتكاليف', 5)">طلب المنتج</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div>
+                <h3>سيناريو أتمتة معالجة الطلبات (Make.com)</h3>
+                <p>ملف Blueprint جاهز للربط بين نموذج الموقع، الجداول الإليكترونية، وإرسال الإشعارات آلية.</p>
+            </div>
+            <div>
+                <div class="price">10 د.أ</div>
+                <button onclick="openModal('P102', 'سيناريو أتمتة Make.com', 10)">طلب المنتج</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div>
+                <h3>نظام إدارة الإنتاجية والانضباط</h3>
+                <p>جدول تفاعلي متقدم لتتبع المهام اليومية، بناء العادات الصلبة، وتقليل التشتت.</p>
+            </div>
+            <div>
+                <div class="price">3 د.أ</div>
+                <button onclick="openModal('P103', 'نظام إدارة الإنتاجية', 3)">طلب المنتج</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">إتمام الطلب</h3>
+            <form id="orderForm">
+                <input type="hidden" id="prodId">
+                <input type="hidden" id="prodName">
+                <input type="hidden" id="prodPrice">
+
+                <label>الاسم الكامل:</label>
+                <input type="text" id="custName" required placeholder="أدخل اسمك">
+
+                <label>البريد الإلكتروني (لاسيلام الملف):</label>
+                <input type="email" id="custEmail" required placeholder="example@mail.com">
+
+                <label>طريقة الدفع:</label>
+                <select id="payMethod">
+                    <option value="CliQ">CliQ</option>
+                    <option value="Orange Money">Orange Money</option>
+                    <option value="Zain Cash">Zain Cash</option>
+                </select>
+
+                <button type="submit">تأكيد وإرسال الطلب</button>
+                <button type="button" onclick="closeModal()" style="background:#64748b; margin-top:8px;">إلغاء</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const WEBHOOK_URL = "https://hook.us2.make.com/w1lyv3udt84q6zn6ri1sloyotlhwmoqs";
+
+        function openModal(id, name, price) {
+            document.getElementById('prodId').value = id;
+            document.getElementById('prodName').value = name;
+            document.getElementById('prodPrice').value = price;
+            document.getElementById('modalTitle').innerText = "طلب: " + name;
+            document.getElementById('orderModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const data = {
+                product_id: document.getElementById('prodId').value,
+                product_name: document.getElementById('prodName').value,
+                price: document.getElementById('prodPrice').value,
+                customer_name: document.getElementById('custName').value,
+                customer_email: document.getElementById('custEmail').value,
+                payment_method: document.getElementById('payMethod').value,
+                timestamp: new Date().toISOString()
+            };
+
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                alert('تم إرسال طلبك بنجاح! سيتم التواصل معك وإرسال الملف عبر البريد فوراً.');
+                closeModal();
+            })
+            .catch(error => {
+                alert('حدث خطأ أثناء إرسال الطلب، يرجى المحاولة لاحقاً.');
+            });
+        });
+    </script>
+</body>
+</html>
+
